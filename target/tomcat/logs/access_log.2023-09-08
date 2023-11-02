@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:22:34 +0600] "GET / HTTP/1.1" 200 57 http-bio-8080-exec-1 128
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:22:34 +0600] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8080-exec-2 5
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:22:45 +0600] "GET /currencies HTTP/1.1" 500 1796 http-bio-8080-exec-4 15
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:26:57 +0600] "GET /currencies HTTP/1.1" 500 1796 http-bio-8080-exec-1 66
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:26:58 +0600] "GET /currencies HTTP/1.1" 500 1796 http-bio-8080-exec-2 3
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:26:59 +0600] "GET /currencies HTTP/1.1" 500 1796 http-bio-8080-exec-3 4
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:26:59 +0600] "GET /currencies HTTP/1.1" 500 1796 http-bio-8080-exec-4 3
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:26:59 +0600] "GET /currencies HTTP/1.1" 500 1796 http-bio-8080-exec-5 2
+0:0:0:0:0:0:0:1 - - [08/Sep/2023:14:26:59 +0600] "GET /currencies HTTP/1.1" 500 1796 http-bio-8080-exec-6 3
