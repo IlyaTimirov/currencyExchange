@@ -24,7 +24,7 @@ public class ExchangeRatesController extends BaseController{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            writeJson(resp, exchangeRateService.getFindAll(), HttpServletResponse.SC_OK);
+            response(resp, exchangeRateService.getFindAll(), HttpServletResponse.SC_OK);
         }catch (AppException e){
             e.sendError(resp, e);
         }
@@ -44,7 +44,7 @@ public class ExchangeRatesController extends BaseController{
             exchangeRate.setTargetCurrencyId(currency.getByCode(targetCurrencyId).getId());
             exchangeRate.setRate(BigDecimal.valueOf(Double.parseDouble(rate)));
 
-            writeJson(resp, exchangeRateService.save(exchangeRate), HttpServletResponse.SC_CREATED);
+            response(resp, exchangeRateService.save(exchangeRate), HttpServletResponse.SC_CREATED);
         }catch (AppException e){
             e.sendError(resp, e);
         }

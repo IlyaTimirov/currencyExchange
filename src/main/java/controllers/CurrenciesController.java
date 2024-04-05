@@ -21,7 +21,7 @@ public class CurrenciesController extends BaseController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            writeJson(resp, currencyService.getFindAll(), HttpServletResponse.SC_OK);
+            response(resp, currencyService.getFindAll(), HttpServletResponse.SC_OK);
         } catch (AppException e) {
             e.sendError(resp, e);
         }
@@ -40,7 +40,7 @@ public class CurrenciesController extends BaseController {
                     .name(fullName)
                     .sign(sign)
                     .build());
-            writeJson(resp, currencyDto, HttpServletResponse.SC_CREATED);
+            response(resp, currencyDto, HttpServletResponse.SC_CREATED);
         } catch (AppException e) {
             e.sendError(resp, e);
         }

@@ -24,9 +24,7 @@ public class ExchangeController extends BaseController {
 
         try {
             validator.incorrectExchangeRate(from, to, amount);
-
-            writeJson(resp, exchange.getExchange(from, to, amount), HttpServletResponse.SC_OK);
-
+            response(resp, exchange.getExchange(from, to, amount), HttpServletResponse.SC_OK);
         } catch (AppException e) {
             e.sendError(resp, e);
         }

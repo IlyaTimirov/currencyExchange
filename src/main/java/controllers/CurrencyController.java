@@ -4,7 +4,6 @@ import exception.AppException;
 import service.CurrencyService;
 import utils.InputParserUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,7 @@ public class CurrencyController extends BaseController {
         try {
             String code = parser.parseInputCurrencyCode(req.getPathInfo());
             validator.incorrectCodeCurrency(code);
-            writeJson(resp, currency.getByCode(code), HttpServletResponse.SC_OK);
+            response(resp, currency.getByCode(code), HttpServletResponse.SC_OK);
         } catch (AppException e) {
             e.sendError(resp, e);
         }

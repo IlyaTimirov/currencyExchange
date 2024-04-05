@@ -27,7 +27,7 @@ public class ExchangeRateController extends BaseController {
         try {
             validator.incorrectCurrencyPair(base, target);
             ExchangeRateDto exchangeRate = exchange.fetchBaseAndTarget(base, target);
-            writeJson(resp, exchangeRate, HttpServletResponse.SC_OK);
+            response(resp, exchangeRate, HttpServletResponse.SC_OK);
         } catch (AppException e) {
             e.sendError(resp, e);
         }
@@ -52,7 +52,7 @@ public class ExchangeRateController extends BaseController {
         try {
             validator.incorrectExchangeRate(baseCurrencyId, targetCurrencyId, rate);
 
-            writeJson(resp, exchange.update(ExchangeRateUpdateDto.builder()
+            response(resp, exchange.update(ExchangeRateUpdateDto.builder()
                     .baseCurrencyCode(baseCurrencyId)
                     .targetCurrencyCode(targetCurrencyId)
                     .rate(BigDecimal.valueOf(Double.parseDouble(rate)))

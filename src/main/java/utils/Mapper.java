@@ -30,8 +30,8 @@ public class Mapper {
         CurrencyDto currencyDtoTarget = currencyService.getById(exchangeRate.getTargetCurrencyId());
 
         ExchangeRateDto exchangeRateDto = mapper.map(exchangeRate, ExchangeRateDto.class);
-        exchangeRateDto.setBaseCurrencyId(currencyDtoBase);
-        exchangeRateDto.setTargetCurrencyId(currencyDtoTarget);
+        exchangeRateDto.setBaseCurrency(currencyDtoBase);
+        exchangeRateDto.setTargetCurrency(currencyDtoTarget);
         return exchangeRateDto;
     }
 
