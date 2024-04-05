@@ -44,7 +44,7 @@ public class ExchangeRateController extends BaseController {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String baseCurrencyId = req.getParameter("baseCurrencyId");
         String targetCurrencyId = req.getParameter("targetCurrencyId");
         String rate = req.getParameter("rate");
