@@ -3,12 +3,12 @@ package entity;
 import java.util.Objects;
 
 public class Currency {
-    private int id;
+    private Long id;
     private String code;
     private String fullName;
     private String sign;
 
-    public Currency(int id, String code, String fullName, String sign) {
+    public Currency(Long id, String code, String fullName, String sign) {
         this.id = id;
         this.code = code;
         this.fullName = fullName;
@@ -25,7 +25,7 @@ public class Currency {
 
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,7 +41,7 @@ public class Currency {
         this.sign = sign;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

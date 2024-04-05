@@ -14,7 +14,6 @@ public class Validator {
         if(incorrectSign(sign)){
             throw new IncorrectCurrencySignException();
         }
-
     }
     public void incorrectCodeCurrency(String code) {
         if(!code.matches("^[a-zA-Z]*$") || code.length() != 3){
@@ -23,17 +22,25 @@ public class Validator {
     }
 
     private boolean incorrectFullName(String fullName) {
-        return fullName.matches("^[a-zA-Z]*$");
+        return !fullName.matches("[\sa-zA-Z]*$");
     }
 
     private boolean incorrectSign(String sign) {
-        return !sign.matches("[^A-z0-9]*$");
+        return !sign.matches("[^0-9]*$");
     }
 
     public void incorrectRate(String rate){
         if(rate.matches("^[a-zA-Z]*$") || rate.isEmpty()){
             throw new IncorrectCurrencyCodeException();
         }
+    }
+    public void incorrectCurrencyPair(String base, String target){
+        incorrectCodeCurrency(base);
+        incorrectCodeCurrency(target);
+    }
+    public void incorrectExchangeRate(String baseCode, String targetCode, String rate){
+        incorrectRate(rate);
+        incorrectCurrencyPair(baseCode, targetCode);
     }
 
 }

@@ -1,23 +1,41 @@
 package service;
 
+import dao.CurrencyDao;
+import dto.CurrencyDto;
 import entity.Currency;
+import exception.notfound.NotFoundCurrencyException;
+import utils.Mapper;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-public interface CurrencyService {
+public class CurrencyService {
+    private final CurrencyDao currencyDao;
 
-    Currency add(Currency currency);
+    private final Mapper mapper;
 
-    void update(Currency currency);
+    public CurrencyService() {
+        this.currencyDao = new CurrencyDao();
+        this.mapper = new Mapper();
+    }
 
-    void removeCurrency(Long id);
+    public CurrencyDto add(CurrencyDto currencyDto) {
+        Currency currency = currencyDao.save(mapper.dtoToCurrency(currencyDto));
+        return mapper.currencyToDto(currency);
+    }
 
-    Currency getById(Long id);
+    public CurrencyDto getById(Long id) {
+        Currency currency = currencyDao.findById(id);
+        return mapper.currencyToDto(currency);
+    }
 
-    List<Currency> getFindAll();
+    public CurrencyDto getByCode(String code) {
+        Currency currency = currencyDao.findByCode(code).orElseThrow(NotFoundCurrencyException::new);
+        return mapper.currencyToDto(currency);
+    }
 
-    Currency getByCode(String code);
-
+    public List<CurrencyDto> getFindAll() {
+        return currencyDao.findAll().stream().map(mapper::currencyToDto)
+                .collect(Collectors.toList());
+    }
 }

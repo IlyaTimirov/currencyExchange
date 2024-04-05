@@ -2,9 +2,7 @@ package controllers;
 
 import exception.AppException;
 import service.CurrencyService;
-import service.CurrencyServiceImpl;
 import utils.InputParserUtils;
-import validation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,19 +13,22 @@ import java.io.IOException;
 @WebServlet("/currency/*")
 public class CurrencyController extends BaseController {
 
-    CurrencyService currency = new CurrencyServiceImpl();
-    InputParserUtils parser = new InputParserUtils();
-    Validator validator = new Validator();
+    private final CurrencyService currency;
+    private final InputParserUtils parser;
+
+    public CurrencyController() {
+        this.currency = new CurrencyService();
+        this.parser = new InputParserUtils();
+    }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             String code = parser.parseInputCurrencyCode(req.getPathInfo());
             validator.incorrectCodeCurrency(code);
             writeJson(resp, currency.getByCode(code), HttpServletResponse.SC_OK);
-        }catch (AppException e){
+        } catch (AppException e) {
             e.sendError(resp, e);
         }
-
     }
 }
