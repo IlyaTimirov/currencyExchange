@@ -31,7 +31,7 @@ public class CurrenciesController extends BaseController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String code = req.getParameter("code");
-        String fullName = req.getParameter("fullName");
+        String fullName = req.getParameter("name");
         String sign = req.getParameter("sign");
         try {
             validator.validCorrectInputCurrency(code, fullName, sign);

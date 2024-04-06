@@ -22,13 +22,14 @@ public class ErrorHandlerController extends BaseController {
 
     private void processError(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        Error error = null;
         if (statusCode == 404) {
-            AppException appException = new AppException(Error.NOT_FOUND_PAGE);
-            appException.sendError(response, appException);
-            //writeJson(response, Error.NOT_FOUND_PAGE, Error.NOT_FOUND_PAGE.getStatus());
+            error = Error.NOT_FOUND_PAGE;
         }
         if (statusCode == 500) {
-            response(response, Error.SERVER_ERROR.getMessage(), Error.SERVER_ERROR.getStatus());
+            error = Error.SERVER_ERROR;
         }
+        AppException appException = new AppException(error);
+        appException.sendError(response, appException);
     }
 }

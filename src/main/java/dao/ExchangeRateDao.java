@@ -2,7 +2,6 @@ package dao;
 
 
 import entity.ExchangeRate;
-import exception.notfound.NotFoundCurrencyException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,18 +30,16 @@ public class ExchangeRateDao implements Dao {
         });
     }
 
-    public ExchangeRate update(ExchangeRate exchangeRate) {
+    public Optional<ExchangeRate> update(ExchangeRate exchangeRate) {
         return execute(UPDATE_EXCHANGE_RATES, statement -> {
             try {
                 statement.setBigDecimal(1, exchangeRate.getRate());
                 statement.setLong(2, exchangeRate.getId());
-                if (statement.executeUpdate() == 0) {
-                    throw new NotFoundCurrencyException();
-                }
+                return statement.executeUpdate() == 0 ? Optional.empty()
+                        : Optional.of(parseExchangeRateFromResult(statement.executeQuery()));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            return exchangeRate;
         });
     }
 
@@ -65,7 +62,8 @@ public class ExchangeRateDao implements Dao {
             try {
                 statement.setLong(1, baseId);
                 statement.setLong(2, targetId);
-                return Optional.ofNullable(parseExchangeRateFromResult(statement.executeQuery()));
+                return !statement.executeQuery().next() ? Optional.empty()
+                        : Optional.of(parseExchangeRateFromResult(statement.executeQuery()));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

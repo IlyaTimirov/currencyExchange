@@ -25,7 +25,7 @@ public class CurrencyService {
     }
 
     public CurrencyDto getById(Long id) {
-        Currency currency = currencyDao.findById(id);
+        Currency currency = currencyDao.findById(id).orElseThrow(NotFoundCurrencyException::new);
         return mapper.currencyToDto(currency);
     }
 

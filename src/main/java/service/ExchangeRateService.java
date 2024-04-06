@@ -5,6 +5,7 @@ import dto.ExchangeRateDto;
 import dto.ExchangeRateUpdateDto;
 import entity.ExchangeRate;
 import exception.notfound.NotCurrencyPairException;
+import exception.notfound.NotFoundCurrencyException;
 import utils.Mapper;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class ExchangeRateService {
     public ExchangeRateDto update(ExchangeRateUpdateDto exchangeRateDto) {
         ExchangeRate exchangeRate = findBaseAndTarget(exchangeRateDto.getBaseCurrencyCode(), exchangeRateDto.getTargetCurrencyCode());
         exchangeRate.setRate(exchangeRateDto.getRate());
-        ExchangeRate exchangeRateUpdate = exchangeRateDao.update(exchangeRate);
+        ExchangeRate exchangeRateUpdate = exchangeRateDao.update(exchangeRate).orElseThrow(NotFoundCurrencyException::new);
         return mapper.exchangeRateToDto(exchangeRateUpdate);
     }
 

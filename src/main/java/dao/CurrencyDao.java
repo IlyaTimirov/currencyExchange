@@ -2,7 +2,6 @@ package dao;
 
 import entity.Currency;
 import exception.already.CurrencyAlreadyExistsException;
-import exception.notfound.NotFoundCurrencyException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -38,7 +37,8 @@ public class CurrencyDao implements Dao {
         return execute(BY_CODE_CURRENCIES, statement -> {
             try {
                 statement.setString(1, code);
-                return Optional.of(parseCurrencyFromResult(statement.executeQuery()));
+                return !statement.executeQuery().next() ? Optional.empty()
+                        : Optional.of(parseCurrencyFromResult(statement.executeQuery()));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -46,14 +46,12 @@ public class CurrencyDao implements Dao {
     }
 
 
-    public Currency findById(Long id) {
+    public Optional<Currency> findById(Long id) {
         return execute(BY_ID_CURRENCIES, statement -> {
             try {
                 statement.setLong(1, id);
-                if (!statement.executeQuery().next()) {
-                    throw new NotFoundCurrencyException();
-                }
-                return parseCurrencyFromResult(statement.executeQuery());
+                return !statement.executeQuery().next() ? Optional.empty()
+                        : Optional.of(parseCurrencyFromResult(statement.executeQuery()));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

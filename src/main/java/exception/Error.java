@@ -22,7 +22,9 @@ public enum Error {
     CURRENCY_PAIR_NOT_FOUND("Валютной пары нету",
             HttpServletResponse.SC_NOT_FOUND),
     NOT_FOUND_PAGE("Страница не найдена!", HttpServletResponse.SC_NOT_FOUND),
-    SERVER_ERROR("Ошибка на сервере, мы уже чиним...", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    SERVER_ERROR("Ошибка на сервере, мы уже чиним...", HttpServletResponse.SC_INTERNAL_SERVER_ERROR),
+    INPUT_FIELD_MISSING("Отсутствует нужное поле ввода!", HttpServletResponse.SC_BAD_REQUEST)
+    ;
 
     private final String message;
     private final int status;

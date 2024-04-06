@@ -45,16 +45,16 @@ public class ExchangeRateController extends BaseController {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String baseCurrencyId = req.getParameter("baseCurrencyId");
-        String targetCurrencyId = req.getParameter("targetCurrencyId");
+        String baseCurrency = req.getPathInfo().substring(1, 4);
+        String targetCurrency = req.getPathInfo().substring(4, 7);
         String rate = req.getParameter("rate");
 
         try {
-            validator.incorrectExchangeRate(baseCurrencyId, targetCurrencyId, rate);
+            validator.incorrectExchangeRate(baseCurrency, targetCurrency, rate);
 
             response(resp, exchange.update(ExchangeRateUpdateDto.builder()
-                    .baseCurrencyCode(baseCurrencyId)
-                    .targetCurrencyCode(targetCurrencyId)
+                    .baseCurrencyCode(baseCurrency)
+                    .targetCurrencyCode(targetCurrency)
                     .rate(BigDecimal.valueOf(Double.parseDouble(rate)))
                     .build()), HttpServletResponse.SC_OK);
         } catch (AppException e) {

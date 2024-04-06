@@ -1,6 +1,6 @@
 package dao;
 
-import DBUtils.Connect;
+import utils.UtilsDb;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,8 +9,8 @@ import java.util.function.Function;
 
 public interface Dao  {
     default <T> T execute(String query, Function<PreparedStatement, T> statement) {
-        Connect connect = new Connect();
-        try (PreparedStatement preparedStatement = connect.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+        UtilsDb utilsDb = new UtilsDb();
+        try (PreparedStatement preparedStatement = utilsDb.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             return statement.apply(preparedStatement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
